@@ -24,7 +24,7 @@ pub fn process_instruction(
     accounts: &[AccountInfo], // The account to say hello to
     _instruction_data: &[u8], // Ignored, all helloworld instructions are hellos
 ) -> ProgramResult {
-    msg!("Hello World Rust program entrypoint");
+    msg!("Drop unlock program entrypoint");
 
     // Iterating accounts is safer then indexing
     let accounts_iter = &mut accounts.iter();
@@ -34,7 +34,7 @@ pub fn process_instruction(
 
     // The account must be owned by the program in order to modify its data
     if account.owner != program_id {
-        msg!("Greeted account does not have the correct program id");
+        msg!("Account does not have the correct program id");
         return Err(ProgramError::IncorrectProgramId);
     }
 
@@ -43,7 +43,7 @@ pub fn process_instruction(
     greeting_account.counter += 1;
     greeting_account.serialize(&mut &mut account.data.borrow_mut()[..])?;
 
-    msg!("Greeted {} time(s)!", greeting_account.counter);
+    msg!("Said hello {} time(s)!", greeting_account.counter);
 
     Ok(())
 }
