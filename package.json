@@ -11,6 +11,8 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/client/main.ts",
+    "create": "ts-node src/client/main.ts create",
+    "drop": "ts-node src/client/main.ts drop",
     "start-with-test-validator": "start-server-and-test 'solana-test-validator --reset --quiet' http://localhost:8899/health start",
     "lint": "eslint --ext .ts src/client/* && prettier --check \"src/client/**/*.ts\"",
     "lint:fix": "eslint --ext .ts src/client/* --fix && prettier --write \"src/client/**/*.ts\"",
@@ -25,6 +27,7 @@
   },
   "dependencies": {
     "@solana/web3.js": "^1.7.0",
+    "bn.js": "^5.2.0",
     "borsh": "^0.4.0",
     "mz": "^2.7.0",
     "yaml": "^1.10.2"

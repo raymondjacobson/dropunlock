@@ -2,6 +2,8 @@
 // use crate::{
 //     instruction::DropUnlockInstruction
 // };
+use crate::state::{LinkDrop};
+
 use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
@@ -21,15 +23,26 @@ pub enum DropUnlockInstruction {
         encrypted_link: String,
         /// Public key of user
         public_key: String,
+        /// Amount for bounty
+        amount: u64
     },
 
     /// 0. `[is_signer]`
     /// 1. `[writable]` Signer's Link account'
     DropLink {
-        /// decrypted link
-        decrypted_link: String,
+        /// private key to decrypt link
+        private_key: String,
+        /// Retrieval account
+        receiver: String
     },
 
+    /// 0. `[is_signer]`
+    /// 1. `[writable]` The user's account funding the lock link account
+    /// 2. `[writable]` The lock link account
+    /// 3. `[]` User's token account authority
+    Fund {
+        amount: u64,
+    }
 }
 
 /// Instruction processor
@@ -56,8 +69,12 @@ pub fn process_instruction(
     // let greeting_account = next_account_info(accounts_iter)?;
 
     match instruction {
-        DropUnlockInstruction::LockLink  { encrypted_link, public_key } => {
-            msg!("DropUnlockInstruction {} with key {}", encrypted_link, public_key);
+        DropUnlockInstruction::LockLink  { encrypted_link, public_key, amount } => {
+
+
+            // is encrypted_link the right type?
+            msg!("DropUnlockInstruction {} with key {} and escrow_pubkey: {}", encrypted_link, public_key, escrow_pubkey);
+            // let mut link_drop = LinkDrop::try_from_slice(&account.data.borrow())?;
 
             // // Get the account to say hello to
             // let greeting_account = next_account_info(accounts_iter)?;
@@ -69,9 +86,44 @@ pub fn process_instruction(
             
             // msg!("Said hello {} time(s)!", greeting_account.counter);
         },
-        DropUnlockInstruction::DropLink { decrypted_link } => {
-            msg!("DropUnlockInstruction {} ", decrypted_link);
+        DropUnlockInstruction::DropLink { private_key, receiver } => {
+            msg!("DropUnlockInstruction {} ", private_key);
+
+            // verify private key matches
+            let secp_pubkey = PublicKey::from_secret_key(&private_key);
+
+            
+        },
+        DropUnlockInstruction::Fund { amount } => {
+            msg!("Fund instr {} ", amount);
+
+            // let users_token_account_info = next_account_info(accounts_iter)?;
+            // let escrow_token_account_info = next_account_info(accounts_iter)?;
+            // let authority_account_info = next_account_info(account_info_iter)?;
+            
+            // let source_data = spl_token::state::Account::unpack(&source.data.borrow())?;
+            // let pair = get_address_pair(program_id, &source_data.mint, eth_address)?;
+            // if *source.key != pair.derive.address {
+            //     return Err(ProgramError::InvalidSeeds);
+            // }
+
+            // let authority_signature_seeds = [&source_data.mint.to_bytes()[..32], &[pair.base.seed]];
+            // let signers = &[&authority_signature_seeds[..]];
+
+            // invoke_signed(
+            //     &spl_token::instruction::transfer(
+            //         &spl_token::id(),
+            //         users_token_account_info.key,
+            //         escrow_token_account_info.key,
+            //         authority_account_info.key,
+            //         &[&authority.key],
+            //         amount,
+            //     )?,
+            //     &[users_token_account_info, escrow_token_account_info, authority],
+            //     signers,
+            // )
         }
+
     }
     
 	Ok(())

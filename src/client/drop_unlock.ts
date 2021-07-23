@@ -205,22 +205,132 @@ export async function checkProgram(): Promise<void> {
   }
 }
 
+// instruction: {
+//   keys: accounts.map(account => {
+//     return {
+//       pubkey: account.pubkey.toString(),
+//       isSigner: account.isSigner,
+//       isWritable: account.isWritable
+//     }
+//   }),
+
+class LockLinkInstructionData {
+  encrypted_link: string
+  public_key: string
+
+  constructor({
+    encryptedLink,
+    publicKey    
+  }: {
+    encryptedLink: string,
+    publicKey: string
+  }) {
+    this.encrypted_link = encryptedLink
+    this.public_key = publicKey
+  }
+}
+
+const LockLinkInstructionSchema = new Map([
+  [
+    LockLinkInstructionData,
+    {
+      kind: 'struct',
+      fields: [
+        ['encrypted_link', 'string'],
+        ['public_key', 'string']
+      ]
+    }
+  ]
+])
+
+class DropLinkInstructionData {
+  private_key: string
+
+  constructor({
+    privateKey
+  }: {
+    privateKey: string
+  }) {
+    this.private_key = privateKey
+  }
+}
+
+const DropLinkInstructionSchema = new Map([
+  [
+    DropLinkInstructionData,
+    {
+      kind: 'struct',
+      fields: [
+        ['private_key', 'string']
+      ]
+    }
+  ]
+])
+
 /**
- * Say hello
+ * Create a drop link
  */
-export async function sayHello(): Promise<void> {
-  console.log('Saying hello to', greetedPubkey.toBase58());
+export async function createDropLink(
+  encryptedLink: string
+): Promise<void> {
+  console.log('Creating a drop link', greetedPubkey.toBase58());
+  const instructionData = new LockLinkInstructionData({
+    encryptedLink,
+    publicKey: 'test public key' 
+  })
+  const serializedInstructionData = borsh.serialize(
+    LockLinkInstructionSchema,
+    instructionData
+  )
+
+  const serializedInstructionEnum = Uint8Array.of(
+    0,
+    ...serializedInstructionData
+  )
+
   const instruction = new TransactionInstruction({
     keys: [{pubkey: greetedPubkey, isSigner: false, isWritable: true}],
     programId,
-    data: Buffer.alloc(0), // All instructions are hellos
+    data: Buffer.from(serializedInstructionEnum)
   });
+
   await sendAndConfirmTransaction(
     connection,
     new Transaction().add(instruction),
     [payer],
   );
 }
+
+export async function releaseDropLink(
+  privateKey: string
+): Promise<void> {
+  const instructionData = new DropLinkInstructionData({
+    privateKey
+  })
+
+  const serializedInstructionData = borsh.serialize(
+    DropLinkInstructionSchema,
+    instructionData
+  )
+
+  const serializedInstructionEnum = Uint8Array.of(
+    1,
+    ...serializedInstructionData
+  )
+
+  const instruction = new TransactionInstruction({
+    keys: [{pubkey: greetedPubkey, isSigner: false, isWritable: true}],
+    programId,
+    data: Buffer.from(serializedInstructionEnum)
+  });
+
+  await sendAndConfirmTransaction(
+    connection,
+    new Transaction().add(instruction),
+    [payer],
+  );
+}
+
 
 /**
  * Report the number of times the greeted account has been said hello to
