@@ -5,10 +5,10 @@
 </p>
 
 [![Build status][travis-image]][travis-url]
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/solana-labs/example-dropunlock)
 
-[travis-image]: https://travis-ci.org/solana-labs/example-helloworld.svg?branch=master
-[travis-url]: https://travis-ci.org/solana-labs/example-helloworld
+[travis-image]: https://travis-ci.org/solana-labs/example-dropunlock.svg?branch=master
+[travis-url]: https://travis-ci.org/solana-labs/example-dropunlock
 
 # Solana 的 Hello world 实例
 
@@ -47,7 +47,7 @@
 
 ## 快速开始
 
-[![在 Gitpod 打开](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
+[![在 Gitpod 打开](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-dropunlock)
 
 如果需要在 Gitpod 中打开，请参考 [README-gitpod.md](README-gitpod.md)，否则请继续阅读。
 
@@ -112,7 +112,7 @@ $ npm run build:program-c
 ### 部署链上程序
 
 ```bash
-$ solana program deploy dist/program/helloworld.so
+$ solana program deploy dist/program/dropunlock.so
 ```
 
 ### 启动客户端
@@ -181,13 +181,13 @@ Solana 开发文档提供了有关 Solana 的更多资料，并且所有的源�
 
 客户端通过调用 establishConnection 与客户端建立连接.
 
-### 检查 helloworld 链上程序是否已经部署
+### 检查 dropunlock 链上程序是否已经部署
 
-客户端从 `./dist/program/helloworld-keypair.json` 加载已部署程序的密钥对，并使用密钥的公共密钥来获取程序帐户。如果该程序不存在，则客户端会因错误而暂停。如果程序确实存在，它将创建一个新帐户，并以该程序作为其所有者来存储程序状态（已处理的 hello 数量）。
+客户端从 `./dist/program/dropunlock-keypair.json` 加载已部署程序的密钥对，并使用密钥的公共密钥来获取程序帐户。如果该程序不存在，则客户端会因错误而暂停。如果程序确实存在，它将创建一个新帐户，并以该程序作为其所有者来存储程序状态（已处理的 hello 数量）。
 
 ### 发送 `Hello` 交易至链上
 
-客户端将通过调用 sayHello 并向程序发送 Hello 交易。此交易包含一条非常简单的指令，此指令主要呼叫 helloworld 程序的帐户公钥希望向 greeter 帐户说 Hello。
+客户端将通过调用 sayHello 并向程序发送 Hello 交易。此交易包含一条非常简单的指令，此指令主要呼叫 dropunlock 程序的帐户公钥希望向 greeter 帐户说 Hello。
 
 ### 查询使用过 Hello 交易的 Solana 帐户
 
@@ -195,7 +195,7 @@ Solana 开发文档提供了有关 Solana 的更多资料，并且所有的源�
 
 ## 学习链上程序
 
-链上 HelloWorld 编程 是一个 Rust 编程编译成 Berkley Packet Filter (BPF) 并储存为可执行和可链接格式（ELF）共享对象.
+链上 dropunlock 编程 是一个 Rust 编程编译成 Berkley Packet Filter (BPF) 并储存为可执行和可链接格式（ELF）共享对象.
 Solana 链上程序存储的可执行字节码都是 Berkley Packet Filter (BPF) 字节码。
 Solana 命令列工具可以把 Rust 和 C 代码编译成 BPF 字节码。
 

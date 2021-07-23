@@ -37,8 +37,8 @@ script:
   - npm run test:program-rust
   - cargo test-bpf --manifest-path=./src/program-rust/Cargo.toml
   - solana config set --url localhost
-  - solana program deploy dist/program/helloworld.so
+  - solana program deploy dist/program/dropunlock.so
   - npm run start
   - npm run build:program-c
-  - solana program deploy dist/program/helloworld.so
+  - solana program deploy dist/program/dropunlock.so
   - npm run start

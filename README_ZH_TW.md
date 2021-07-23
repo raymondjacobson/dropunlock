@@ -5,10 +5,10 @@
 </p>
 
 [![Build status][travis-image]][travis-url]
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/solana-labs/example-dropunlock)
 
-[travis-image]: https://travis-ci.org/solana-labs/example-helloworld.svg?branch=master
-[travis-url]: https://travis-ci.org/solana-labs/example-helloworld
+[travis-image]: https://travis-ci.org/solana-labs/example-dropunlock.svg?branch=master
+[travis-url]: https://travis-ci.org/solana-labs/example-dropunlock
 
 # Hello world on Solana
 
@@ -46,7 +46,7 @@
 
 ## 快速開始
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-dropunlock)
 
 如果您決定在 Gitpod 中打開，請參考 [README-gitpod.md](README-gitpod.md)，否則請繼續閱讀。
 
@@ -111,7 +111,7 @@ $ npm run build:program-c
 ### 部署鏈上程式
 
 ```bash
-$ solana program deploy dist/program/helloworld.so
+$ solana program deploy dist/program/dropunlock.so
 ```
 
 ### 啟動客戶端
@@ -172,28 +172,28 @@ Success
 
 ### 進入點
 
-[客戶端入口點](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/main.js#L14)做了四件事
+[客戶端入口點](https://github.com/solana-labs/example-dropunlock/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/main.js#L14)做了四件事
 
 ### 建立與集群的連接
 
-客戶端通過調用 [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45) 與客戶端建立連接.
+客戶端通過調用 [`establishConnection`](https://github.com/solana-labs/example-dropunlock/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45) 與客戶端建立連接.
 
-### 檢查一下這個 helloworld 鏈上程式是否已經部署好了
+### 檢查一下這個 dropunlock 鏈上程式是否已經部署好了
 
-客戶端從 `./dist/program/helloworld-keypair.json` 這個文件加載程式的密鑰對。客戶端使用那個密鑰對的公鑰訪問程式帳戶。如果程式帳戶不存在，
+客戶端從 `./dist/program/dropunlock-keypair.json` 這個文件加載程式的密鑰對。客戶端使用那個密鑰對的公鑰訪問程式帳戶。如果程式帳戶不存在，
 客戶端就會報錯並停止運行。如果程式存在，客戶端會創建一個對於該程式指定好的帳戶。
 
 ### 發送 `Hello` 交易至鏈上
 
-客戶端將通過調用 [`sayHello`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L121) 並向程式發送 `Hello` 交易。此交易包含一條非常簡單的指令，此指令主要呼叫 `helloworld` 程式的帳戶公鑰希望向 `greeter` 帳戶說 `Hello`。
+客戶端將通過調用 [`sayHello`](https://github.com/solana-labs/example-dropunlock/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L121) 並向程式發送 `Hello` 交易。此交易包含一條非常簡單的指令，此指令主要呼叫 `dropunlock` 程式的帳戶公鑰希望向 `greeter` 帳戶說 `Hello`。
 
 ### 查詢使用過 `Hello` 交易的 Solana 帳戶
 
-客戶端每次對帳戶說 `Hello` 時，程式都會在 `greeter` 帳戶的數據中增加一個計數。客戶端查詢 `greeter` 帳戶的數據，並透過 [`reportHellos`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L138.) 查詢此帳戶當前被訪問的次數。
+客戶端每次對帳戶說 `Hello` 時，程式都會在 `greeter` 帳戶的數據中增加一個計數。客戶端查詢 `greeter` 帳戶的數據，並透過 [`reportHellos`](https://github.com/solana-labs/example-dropunlock/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L138.) 查詢此帳戶當前被訪問的次數。
 
 ## 學習鏈上程式
 
-[鏈上 HelloWorld 程式](/src/program-rust/Cargo.toml) 是一個 Rust 程式編譯成 [Berkley Packet Format (BPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter) 並儲存為[可執行和可鏈接格式（ELF）共享對象](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format).
+[鏈上 dropunlock 程式](/src/program-rust/Cargo.toml) 是一個 Rust 程式編譯成 [Berkley Packet Format (BPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter) 並儲存為[可執行和可鏈接格式（ELF）共享對象](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format).
 
 此程式是使用以下程式編寫：
 - [Solana Rust SDK](https://github.com/solana-labs/solana/tree/master/sdk) 

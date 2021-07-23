@@ -5,11 +5,11 @@
 </p>
 
 [![Build status][travis-image]][travis-url] [![Gitpod
-Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
+Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/solana-labs/example-dropunlock)
 
 [travis-image]:
-https://travis-ci.org/solana-labs/example-helloworld.svg?branch=master
-[travis-url]: https://travis-ci.org/solana-labs/example-helloworld
+https://travis-ci.org/solana-labs/example-dropunlock.svg?branch=master
+[travis-url]: https://travis-ci.org/solana-labs/example-dropunlock
 
 # Hello world on Solana
 
@@ -41,7 +41,7 @@ The project comprises of:
   - [Learn about the client](#learn-about-the-client)
     - [Entrypoint](#entrypoint)
     - [Establish a connection to the cluster](#establish-a-connection-to-the-cluster)
-    - [Load the helloworld on-chain program if not already loaded](#load-the-helloworld-on-chain-program-if-not-already-loaded)
+    - [Load the dropunlock on-chain program if not already loaded](#load-the-dropunlock-on-chain-program-if-not-already-loaded)
     - [Send a "Hello" transaction to the on-chain program](#send-a-hello-transaction-to-the-on-chain-program)
     - [Query the Solana account used in the "Hello" transaction](#query-the-solana-account-used-in-the-hello-transaction)
   - [Learn about the on-chain program](#learn-about-the-on-chain-program)
@@ -52,7 +52,7 @@ The project comprises of:
 ## Quick Start
 
 [![Open in
-Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
+Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-dropunlock)
 
 If you decide to open in Gitpod then refer to
 [README-gitpod.md](README-gitpod.md), otherwise continue reading.
@@ -122,7 +122,7 @@ $ npm run build:program-c
 ### Deploy the on-chain program
 
 ```bash
-$ solana program deploy dist/program/helloworld.so
+$ solana program deploy dist/program/dropunlock.so
 ```
 
 ### Run the JavaScript client
@@ -187,24 +187,24 @@ The client in this example is written in TypeScript using:
 ### Entrypoint
 
 The [client's
-entrypoint](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/main.ts#L13)
+entrypoint](https://github.com/solana-labs/example-dropunlock/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/main.ts#L13)
 does five things.
 
 ### Establish a connection to the cluster
 
 The client establishes a connection with the cluster by calling
-[`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L92).
+[`establishConnection`](https://github.com/solana-labs/example-dropunlock/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L92).
 
 ### Establish an account to pay for transactions
 
 The client ensures there is an account available to pay for transactions,
 and creates one if there is not, by calling
-[`establishPayer`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L102).
+[`establishPayer`](https://github.com/solana-labs/example-dropunlock/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L102).
 
-### Check if the helloworld on-chain program has been deployed
+### Check if the dropunlock on-chain program has been deployed
 
-In [`checkProgram`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L144),
-the client loads the keypair of the deployed program from `./dist/program/helloworld-keypair.json` and uses
+In [`checkProgram`](https://github.com/solana-labs/example-dropunlock/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L144),
+the client loads the keypair of the deployed program from `./dist/program/dropunlock-keypair.json` and uses
 the public key for the keypair to fetch the program account. If the program doesn't exist, the client halts
 with an error. If the program does exist, it will create a new account with the program assigned as its owner
 to store program state (number of hello's processed).
@@ -213,9 +213,9 @@ to store program state (number of hello's processed).
 
 The client then constructs and sends a "Hello" transaction to the program by
 calling
-[`sayHello`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L209).
+[`sayHello`](https://github.com/solana-labs/example-dropunlock/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L209).
 The transaction contains a single very simple instruction that primarily carries
-the public key of the helloworld program account to call and the "greeter"
+the public key of the dropunlock program account to call and the "greeter"
 account to which the client wishes to say "Hello" to.
 
 ### Query the Solana account used in the "Hello" transaction
@@ -224,11 +224,11 @@ Each time the client says "Hello" to an account, the program increments a
 numerical count in the "greeter" account's data.  The client queries the
 "greeter" account's data to discover the current number of times the account has
 been greeted by calling
-[`reportGreetings`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L226).
+[`reportGreetings`](https://github.com/solana-labs/example-dropunlock/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L226).
 
 ## Learn about the on-chain program
 
-The [on-chain helloworld program](/src/program-rust/Cargo.toml) is a Rust program
+The [on-chain dropunlock program](/src/program-rust/Cargo.toml) is a Rust program
 compiled to [Berkley Packet Format
 (BPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter) and stored as an
 [Executable and Linkable Format (ELF) shared
